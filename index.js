@@ -1,9 +1,8 @@
 //imports
 import * as fs from "fs"
 import minimist from "minimist"
-import * as readline from "readline"
 import * as path from "path"
-import { Stream, Transform, pipeline } from "stream"
+import { Transform } from "stream"
 
 //constants and variables
 const argv = minimist(process.argv.slice(2))
@@ -30,7 +29,9 @@ const resultData = new Transform({
     chunk.forEach(element => {
       if(result.hasOwnProperty(element)){
         result[element] = result[element]+1
-      } else{
+      } else if(element===''){
+        console.log("Skip trash element")
+      }else {
         // Uncomment to see intermediate result
         // console.log(result) 
         result[element] = 1
